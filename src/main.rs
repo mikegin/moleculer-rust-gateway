@@ -11,6 +11,8 @@ use serde_json::{Value, Map, Number};
 use tokio::{net::TcpListener, task};
 use warp::{Filter, hyper::StatusCode, Rejection, Reply, reject, reply::{json, self}};
 
+mod encryption;
+
 #[derive(Debug)]
 struct MyError;
 
