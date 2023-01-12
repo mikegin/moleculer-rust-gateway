@@ -12,6 +12,24 @@ use uuid::{Bytes, Uuid};
 use rand::{distributions::Alphanumeric, Rng};
 
 
+pub fn conforms_to_encrypted_bld_tok(bytes: &[u8]) {
+  
+}
+
+#[test]
+fn split_u8_array() {
+  let secret = b"abc.123.xyz";
+  let input: Vec<u8> = secret.to_vec();
+
+  let s = std::str::from_utf8(&input).unwrap();
+  let pattern = std::str::from_utf8(".".as_bytes()).unwrap();
+  let new_vector: Vec<Vec<u8>> = s.split(pattern).map(|s| s.as_bytes().to_vec()).collect();
+  assert!(new_vector[0] == b"abc".to_vec());
+  assert!(new_vector[1] == b"123".to_vec());
+  assert!(new_vector[2] == b"xyz".to_vec());
+  println!("{:?}", new_vector);
+}
+
 #[test]
 fn test_encrypt_decrypt() {
     let key = hex!("11754cd72aec309bf52f7687212e8957");
@@ -77,7 +95,8 @@ fn test_encrypt_decrypt_bld_tok() {
         .map(char::from)
         .collect();
     let nonce = Nonce::from_slice(s.as_bytes());
-    let ciphertext = cipher.encrypt(nonce, b"plaintext message".as_ref()).unwrap();
+    let ciphertext = cipher.encrypt(nonce, b"plaintext message 1".as_ref()).unwrap();
+    println!("{:?}", ciphertext.len());
     let plaintext = cipher.decrypt(nonce, ciphertext.as_ref()).unwrap();
-    assert_eq!(&plaintext, b"plaintext message");
+    assert_eq!(&plaintext, b"plaintext message 1");
 }
