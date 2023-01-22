@@ -1759,6 +1759,7 @@ dependencies = [
  "serde_json",
  "temporal-client",
  "temporal-sdk-core",
+ "temporal-sdk-core-protos",
  "tokio",
  "uuid 1.2.2",
  "warp",
